@@ -11,11 +11,13 @@ class Post extends Model
 
     protected $fillable = ['title', 'body', 'slug'];
 
-    public function categories(){
+    public function categories(): belongsToMany
+    {
         return $this->belongsToMany(BlogCategory::class);
     }
 
-    public function comments(){
+    public function comments(): hasMany
+    {
         return $this->hasMany(Comment::class);
     }
 }

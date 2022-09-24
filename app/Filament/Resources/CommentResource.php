@@ -35,7 +35,7 @@ class CommentResource extends Resource
                     ->relationship('post', 'title')
                     ->required(),
                 Forms\Components\Select::make('user_id')
-                ->relationship('user', 'email'),
+                    ->relationship('user', 'email'),
             ]);
     }
 

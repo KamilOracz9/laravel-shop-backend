@@ -28,13 +28,17 @@ class CategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->rules([
+                        'min:3',
+                        'max:50'
+                    ])
                     ->reactive()
                     ->afterStateUpdated(function (\Closure $set, $state) {
                         $set('slug', Str::slug($state));
                     }),
                 Forms\Components\TextInput::make('slug')
                     ->required()
-                    ->reactive(),
+                    ->disabled(),
                 Forms\Components\MultiSelect::make('products')
                     ->relationship('products', 'name'),
             ]);

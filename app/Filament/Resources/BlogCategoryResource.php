@@ -36,7 +36,9 @@ class BlogCategoryResource extends Resource
                     ->afterStateUpdated(function (\Closure $set, $state) {
                         $set('slug', Str::slug($state));
                     }),
-                Forms\Components\TextInput::make('slug')->required(),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->disabled(),
                 Forms\Components\MultiSelect::make('posts')
                     ->relationship('posts', 'title')
             ]);

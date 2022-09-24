@@ -34,8 +34,19 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('email')->email()->required(),
+                Forms\Components\TextInput::make('name')
+                    ->rules([
+                        'min:3',
+                        'max:50'
+                    ])
+                    ->required(),
+                Forms\Components\TextInput::make('email')
+                    ->rules([
+                        'min:3',
+                        'max:200'
+                    ])
+                    ->email()
+                    ->required(),
             ]);
     }
 

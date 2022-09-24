@@ -34,11 +34,15 @@ class ProductResource extends Resource
                     ->afterStateUpdated(function (\Closure $set, $state) {
                         $set('slug', Str::slug($state));
                     }),
-                Forms\Components\TextInput::make('slug')->required(),
-                Forms\Components\TextInput::make('price')->required()->rule('numeric'),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->disabled(),
+                Forms\Components\TextInput::make('price')
+                    ->required()
+                    ->rule('numeric'),
                 Forms\Components\FileUpload::make('image'),
-                Forms\Components\MultiSelect::make('categories')
-                    ->relationship('categories', 'name'),
+                Forms\Components\Select::make('category')
+                    ->relationship('category', 'name'),
             ]);
     }
 
