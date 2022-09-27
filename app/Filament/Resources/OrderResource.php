@@ -26,9 +26,13 @@ class OrderResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'email'),
+                Forms\Components\Select::make('status_id')
+                    ->relationship('status', 'name')
+                    ->default(1),
                 Forms\Components\TextInput::make('value')
                     ->required()
                     ->rule('numeric'),
+
             ]);
     }
 
@@ -38,6 +42,7 @@ class OrderResource extends Resource
             ->columns([
                 TextColumn::make('user.email')->sortable()->searchable(),
                 TextColumn::make('value')->money('usd', true)->sortable(),
+                TextColumn::make('status.name')->sortable(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
@@ -65,5 +70,12 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+
+    protected function mutateFormDataBefore(array $data): array
+    {
+        !$data['status_id'] && $data['status_id'] = 1;
+
+        return $data;
     }
 }
